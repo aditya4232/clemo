@@ -2,9 +2,9 @@
 
 | Milestone | Scope |
 |---|---|
-| C0 | Tool shell, shared packages, licence review of candidate libraries/models |
-| C1 | Redact and FormFit (client-side, 0 credits) + usage tracking |
-| C2 | Paperwork Pilot (citations, eval set, disclaimer) |
-| C3 | Scam Check (rules + model, labelled test set, published accuracy) |
-| C4 | Split the Bill |
+| C0 | Flow engine, Smart Drop shell, shared packages, licence review of candidate libraries/models |
+| C1 | Redact and FormFit (browser-first, 0 credits) + usage tracking |
+| C2 | Paperwork Pilot with citations, eval set, reminders and letter export |
+| C3 | Scam Check with labelled test set and published accuracy |
+| C4 | Split the Bill; chained flows (Redact -> Paperwork Pilot) |
 | Later | Developer shelf: MCP Playground, GitHub Roast & Fix |

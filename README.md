@@ -1,31 +1,34 @@
 # Clemo
 
-**Small free tools for everyday paperwork and privacy.** One job per tool, no paywalls, works on a phone, and your files stay on your device whenever the browser can do the job.
+**Upload anything, get the job done.** Free, AI-assisted flows for everyday paperwork and privacy. Your files are not stored.
 
 Live (planned): **clemo.adityacuz.in** · Part of [adityacuz.in](https://adityacuz.in) · MIT licensed
 
-> **Status: design phase.** The launch set below is a hypothesis to be validated with real usage. Nothing is built yet.
+> **Status: design phase.** Everything below is the plan; nothing is built yet.
 
-## Launch set
-| Tool | For | What it does | Runs |
-|---|---|---|---|
-| **Redact** | anyone sharing ID copies or statements | Masks Aadhaar/PAN/phone/account numbers and faces before you share a file | fully in your browser |
-| **FormFit** | applicants uploading to government or exam portals | Paste the portal's instructions; it extracts the size and format rules and fits your photo, signature and PDFs, with a pass/fail check | in browser; AI only reads the instruction text |
-| **Paperwork Pilot** | rent agreements, bank letters, policies, notices | Plain-language summary, key dates and amounts, unusual clauses and questions to ask, each linked to the exact line it came from | redaction in browser, AI via gateway |
-| **Scam Check** | fake job offers, payment requests, phishing SMS | Explains the risk signals in a message or link and what to do; signals, not a verdict | rules + small model, link checks server-side |
-| **Split the Bill** | friends, roommates, trips | Receipt photo to itemised table to who owes whom, UPI-ready | OCR in browser, AI fallback |
+## How it works
+Drop a file, paste text, or paste a screenshot into **Smart Drop**. It recognises what you gave it and picks the right flow (you can override). Each flow is several steps, not one prompt:
 
-Build order: Redact and FormFit first (client-side, no AI cost), then Paperwork Pilot and Scam Check once usage shows demand. Developer-oriented tools (MCP Playground, GitHub Roast & Fix) come later on a separate shelf.
+`read in your browser -> plan -> extract -> verify against your document -> assess -> explain -> export`
 
-## Principles
-- **Plain language, one job per tool, stated limits.**
-- **Browser-first.** If it can run locally it does; files never leave your device.
-- **No retention.** Anything processed server-side is deleted after the job; each tool page says what is kept.
-- **Show the evidence.** AI answers point at the part of your document they came from.
-- **Honest limits.** Not legal advice; scam results are signals; accuracy is measured and published.
-- **Licence-clean.** Every model and library is checked before use.
+Every extracted fact must point to the exact place in your document it came from, or it is thrown away.
 
-## Architecture
-Monorepo, one package per tool, shared UI and session packages from `@adityacuz/*`. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/ROADMAP.md](docs/ROADMAP.md).
+## Flows
+| Flow | You give | You get |
+|---|---|---|
+| **Paperwork Pilot** | rent agreement, bank letter, policy, notice, job offer | plain-language summary, key dates and amounts, unusual clauses, questions to ask, calendar reminders, a draft reply letter, answers with citations |
+| **Scam Check** | suspicious message, link, screenshot | why it looks risky, safe link analysis, what to do and where to report |
+| **FormFit** | a portal's size/format instructions + your photo, signature, PDFs | files resized and checked against each rule, with a pass/fail report |
+| **Redact** | ID copies, statements | masked numbers and faces, metadata stripped, verified before download |
+| **Split the Bill** | receipt photo | itemised table, who owes whom, UPI-ready message |
 
-[SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) (design phase: open an issue first)
+## Privacy
+- Files are read and processed in your browser first; only extracted text or a downsized image is sent for AI steps.
+- **Nothing is saved**: no file storage, no document text in logs. Server work happens in memory and is discarded.
+- AI answers are labelled; they are not legal, financial or medical advice. Scam results are signals, not verdicts.
+
+## Quality
+Each flow has a labelled test set and an automated evaluation; published accuracy comes only from those runs, along with the known failure cases.
+
+## Docs
+[Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md) (design phase: open an issue first)
