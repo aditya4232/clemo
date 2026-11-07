@@ -17,5 +17,7 @@
 - [P0 Runtime Foundation Design](superpowers/specs/2026-11-07-clemo-p0-runtime-design.md)
 - [P0 Runtime Foundation Plan](superpowers/plans/2026-11-07-clemo-p0-runtime-plan.md)
 
-## Builder rule
+- [Clemo Frontend and Backend Build Playbook](FRONTEND-BACKEND-BUILD-PLAYBOOK.md): frontend/backend implementation contract, design skill workflow, Figma scope and verification gates.
+
+## $1
 Read AI Build Context before implementation. Planned, scaffolded, implemented, tested, deployed and verified are separate states. Use test-first development for behavior changes and never claim checks passed without actual output.
