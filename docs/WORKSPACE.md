@@ -6,9 +6,11 @@
 - Connections: GitHub App installations, selected repositories and webhooks.
 - Launcher: authorization decision, short-lived launch code and redirect.
 - Activity: minimal product events and audit history.
-- Document tools: browser-first pipelines isolated from the workspace control plane.
+- Credits and commerce: wallet ledger, reservations, orders, entitlements, refunds and subscriptions (see CREDITS-COMMERCE-AND-SUPPORT.md).
+- Support: tickets, case history, escalation and customer notifications.
+- Document tools: browser-first pipelines isolated from workspace control plane.
 
-The workspace shell owns identity, catalog and connections. Each product owns its own domain data and execution.
+The workspace shell owns identity, catalog and connections. Each product owns its own domain data and execution. Clemo owns its credit ledger; Agent Workspace never mutates wallet state directly.
 
 ## Tool manifest
 Required fields: id, slug, display_name, description, owner, repository_url, status (concept/design/preview/live/maintenance/archived), canonical_origin, environment_origins, launch_path, auth_mode, optional health_check_url, required_scopes, supported_events, manifest_version, data_classification, privacy_url, support_url, last_verified_at and owner_approved_at.
@@ -20,8 +22,11 @@ Use a one-time, audience-bound, short-lived opaque code. Persist only a hash, ex
 
 If the receiving product does not implement secure redemption, use an ordinary link and require independent authentication. Do not simulate SSO with shared cookies.
 
+## Credits boundary
+Only Clemo's authenticated billing/credits service may create wallet ledger entries or reservations. A tool requests a server-issued quote/reservation using an idempotency key and returns a job outcome; it cannot self-assert cost or alter balance. Cross-product use is represented by signed usage events that Clemo validates against its reservation record. Provider inference spend and Clemo platform credits are separate line items. Agent Workspace BYOK credentials are never sent to Clemo.
+
 ## GitHub integration
-Prefer a GitHub App over a user PAT. Request metadata/read-only permissions initially. Add contents/actions/deploy permissions only for a documented feature requiring them and explicit approval. Validate webhook HMAC signatures, timestamp tolerance, delivery ID uniqueness and installation ownership. Queue processing is idempotent. Respect ETag, 304, Retry-After and rate-limit reset; bounded exponential backoff. Limits vary by authentication type and installation.
+Prefer a GitHub App over a user PAT. Request metadata/read-only permissions initially. Add contents/actions/deploy permissions only for a documented feature requiring them and explicit approval. Validate webhook HMAC signatures, timestamp tolerance, delivery ID uniqueness and installation ownership. Queue processing is idempotent. Respect ETag, 304, Retry-After and rate-limit reset; limits vary by authentication type and installation.
 
 ## Event envelope
 event_id, event_type, schema_version, occurred_at, source_tool_id, workspace_id, pseudonymous actor_ref, minimal allowlisted data, signature and delivery_id. Never include raw prompts, document contents, secrets, provider keys or chat transcripts. Reject unknown schema versions and replayed event IDs.
@@ -31,10 +36,11 @@ event_id, event_type, schema_version, occurred_at, source_tool_id, workspace_id,
 |---|---|
 | Account/workspace/membership | Clemo |
 | Tool manifests and connection metadata | Clemo |
+| Wallet, orders, subscriptions, refunds and support cases | Clemo |
 | GitHub repository/installation metadata | Clemo cache + GitHub source |
 | Chat history, model config, provider key vault | Agent Workspace |
 | Evaluation runs and experiment artifacts | Agent Labs |
-| Document contents/generated files | Clemo document tool or its explicit storage subsystem |
+| Document contents/generated files | Clemo document tool or explicit storage subsystem |
 | Public pages/articles | Portfolio CMS |
 
 Clemo stores references and summaries, not duplicated product databases.
