@@ -9,7 +9,6 @@
 
 ## Product model
 
-Clemo has two layers:
 1. Workspace shell: identity, workspace home, project catalog, connected repositories, launch/deep links, recent activity, account settings and (after approval) billing/usage.
 2. First-party tools: Agent Workspace, Agent Labs and future tools. Each remains its own repository, deployment, release cycle and security boundary.
 
@@ -19,7 +18,7 @@ Clemo is not a monolith and does not absorb every product's code or data. It is 
 
 Home for recent/pinned tools and workspace health; catalog by capability/status; least-privilege GitHub App connection; approved product launcher; scoped context references; minimal signed activity events; account, permissions and data settings.
 
-Tool catalog states must be accurate: Concept, Design, Preview, Live, Maintenance or Archived. A repository connection is not a deployment.
+Tool catalog states: Concept, Design, Preview, Live, Maintenance or Archived. A repository connection is not a deployment.
 
 ## Integration rules
 
@@ -44,9 +43,12 @@ P3 scoped launch assertions and minimal signed events.
 P4 separately approved deployment control plane.
 
 ## Documentation
+
 - [Architecture](docs/ARCHITECTURE.md)
 - [Workspace contracts](docs/WORKSPACE.md)
+- [Integration contracts](docs/INTEGRATION-CONTRACTS.md)
 - [Credit, commerce, support and tools](docs/CREDITS-COMMERCE-AND-SUPPORT.md)
+- [Platform cost and operations](docs/PLATFORM-COST-AND-OPERATIONS.md)
 - [Development handoff](docs/DEVELOPMENT-HANDOFF.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Security](SECURITY.md)
